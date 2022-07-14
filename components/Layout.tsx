@@ -9,7 +9,7 @@ const Layout = ({ children }: layoutProps) => {
   return (
     <div className="min-h-screen flex flex-col justify-between">
       <Navigation />
-      <main>{children}</main>
+      <main className="container m-auto mt-4 px-4">{children}</main>
       <Footer />
     </div>
   );
