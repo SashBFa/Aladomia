@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useContext } from "react";
 import Meta from "../components/Meta";
 import { Store } from "../utils/Store";
+import dynamic from "next/dynamic";
 
 interface cartItemsProps {
   name: string;
@@ -32,6 +33,10 @@ const CartScreen = () => {
     dispatch({ type: "CART_REMOVE_ITEM", payload: item });
   };
 
+  const updateCartHandler = (item: cartItemsProps, qty: string) => {
+    const quantity = Number(qty);
+    dispatch({ type: "CART_ADD_ITEM", payload: { ...item, quantity } });
+  };
   return (
     <>
       <Meta />
@@ -70,7 +75,20 @@ const CartScreen = () => {
                           </a>
                         </Link>
                       </td>
-                      <td className="p-5 text-right">{item.quantity}</td>
+                      <td className="p-5 text-right">
+                        <select
+                          value={item.quantity}
+                          onChange={(e) =>
+                            updateCartHandler(item, e.target.value)
+                          }
+                        >
+                          {[...Array(item.countInStock).keys()].map((x) => (
+                            <option key={x + 1} value={x + 1}>
+                              {x + 1}
+                            </option>
+                          ))}
+                        </select>
+                      </td>
                       <td className="p-5 text-right">{item.price}€</td>
                       <td className="p-5 text-center flex items-center justify-center">
                         <button
@@ -112,4 +130,4 @@ const CartScreen = () => {
   );
 };
 
-export default CartScreen;
+export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });

@@ -1,4 +1,5 @@
 import React, { useReducer, createContext, Dispatch } from "react";
+import Cookies from "js-cookie";
 
 interface cartItemsProps {
   name: string;
@@ -35,9 +36,10 @@ interface storeProviderProps {
 }
 
 export const Store = createContext({} as IContextProps);
-
 const initialState: stateProps = {
-  cart: { cartItems: [] },
+  cart: Cookies.get("cart")
+    ? JSON.parse(Cookies.get("cart") as string)
+    : { cartItems: [] },
 };
 
 const reducer = (state: stateProps, action: actionProps) => {
@@ -53,12 +55,14 @@ const reducer = (state: stateProps, action: actionProps) => {
             item.name === existItem.name ? newItem : item
           )
         : [...state.cart.cartItems, newItem];
+      Cookies.set("cart", JSON.stringify({ ...state.cart, cartItems }));
       return { ...state, cart: { ...state.cart, cartItems } };
     }
     case "CART_REMOVE_ITEM": {
       const cartItems = state.cart.cartItems.filter(
         (item: cartItemsProps) => item.slug !== action.payload.slug
       );
+      Cookies.set("cart", JSON.stringify({ ...state.cart, cartItems }));
       return { ...state, cart: { ...state.cart, cartItems } };
     }
     default:
