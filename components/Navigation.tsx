@@ -8,10 +8,10 @@ const Navigation = () => {
       </Link>
       <div>
         <Link href="/cart">
-          <a className="p-2">Cart</a>
+          <a className="p-2">Panier</a>
         </Link>
         <Link href="/login">
-          <a className="p-2">Login</a>
+          <a className="p-2">Se connecter</a>
         </Link>
       </div>
     </nav>
