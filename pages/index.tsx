@@ -1,15 +1,15 @@
-import { library } from "@fortawesome/fontawesome-svg-core";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCode, faHighlighter } from "@fortawesome/free-solid-svg-icons";
+import { faCode } from "@fortawesome/free-solid-svg-icons";
+import Meta from "../components/Meta";
 
 const index = () => {
   return (
-    <div>
-      <h2>
+    <>
+      <Meta />
+      <h2 className="text-red-500">
         Hello next <FontAwesomeIcon icon={faCode} />{" "}
       </h2>
-    </div>
+    </>
   );
 };
 
