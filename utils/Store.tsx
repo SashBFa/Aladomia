@@ -3,7 +3,14 @@ import React, { useReducer, createContext, Dispatch } from "react";
 interface cartItemsProps {
   name: string;
   slug: string;
+  category: string;
+  image: string;
+  price: number;
+  brand: string;
+  rating: number;
+  numReviews: number;
   countInStock: number;
+  description: string;
   quantity: number;
 }
 
@@ -27,11 +34,6 @@ interface storeProviderProps {
   children: JSX.Element;
 }
 
-interface existItemProps {
-  name: string;
-  slug: string;
-}
-
 export const Store = createContext({} as IContextProps);
 
 const initialState: stateProps = {
@@ -43,15 +45,20 @@ const reducer = (state: stateProps, action: actionProps) => {
     case "CART_ADD_ITEM": {
       const newItem = action.payload;
       const existItem = state.cart.cartItems.find(
-        (item: existItemProps) => item.slug === newItem.slug
+        (item: cartItemsProps) => item.slug === newItem.slug
       );
       //console.log(state.cart.cartItems);
-
       const cartItems = existItem
-        ? state.cart.cartItems.map((item: existItemProps) =>
+        ? state.cart.cartItems.map((item: cartItemsProps) =>
             item.name === existItem.name ? newItem : item
           )
         : [...state.cart.cartItems, newItem];
+      return { ...state, cart: { ...state.cart, cartItems } };
+    }
+    case "CART_REMOVE_ITEM": {
+      const cartItems = state.cart.cartItems.filter(
+        (item: cartItemsProps) => item.slug !== action.payload.slug
+      );
       return { ...state, cart: { ...state.cart, cartItems } };
     }
     default:

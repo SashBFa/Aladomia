@@ -14,6 +14,7 @@ interface existItemProps {
 const ProductScreen = () => {
   const [stockAlert, setStockAlert] = useState<boolean>(false);
   const { state, dispatch } = useContext(Store);
+  const router = useRouter();
   const { query } = useRouter();
   const { slug } = query;
   const product = data.products.find((x) => x.slug === slug);
@@ -32,6 +33,7 @@ const ProductScreen = () => {
       return;
     }
     dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
+    router.push("/cart");
   };
 
   return (
