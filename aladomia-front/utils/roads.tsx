@@ -6,7 +6,7 @@ export const roads: {
 }[] = [
   {
     id: 1,
-    name: "Home",
+    name: "Acceuil",
     link: "/",
   },
   {
@@ -16,7 +16,7 @@ export const roads: {
   },
   {
     id: 3,
-    name: "Shop",
+    name: "Boutique",
     link: "/shop",
   },
   {
@@ -26,7 +26,7 @@ export const roads: {
   },
   {
     id: 5,
-    name: "Profil",
-    link: "/profil",
+    name: "A Propos",
+    link: "/propos",
   },
 ];

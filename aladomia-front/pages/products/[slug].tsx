@@ -1,4 +1,5 @@
 import Meta from "../../components/template/Meta";
+import Image from "next/image";
 import { gql } from "@apollo/client";
 import client from "../../utils/apolloClient";
 
@@ -28,10 +29,17 @@ interface articleProps {
 
 const Product = ({ article }: articleProps) => {
   const product = article.attributes;
+  const proImage = article.attributes.image.data.attributes;
   return (
     <>
       <Meta title={product.meta_title} description={product.meta_description} />
       <h2>{product.name}</h2>
+      <Image
+        src={process.env.NEXT_PUBLIC_STRAPI_IMAGE_URL + proImage.url}
+        width={proImage.width}
+        height={proImage.height}
+        alt={product.name}
+      />
     </>
   );
 };

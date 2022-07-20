@@ -28,6 +28,9 @@ const shop = ({ products }: productsProps) => {
   return (
     <>
       <Meta />
+      <h2 className="ml-10 text-3xl font-bold text-gray-700 drop-shadow-md">
+        La boutique
+      </h2>
       <ul className="flex flex-wrap">
         {products &&
           products.map((product) => (
